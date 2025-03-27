@@ -17,7 +17,9 @@ public class SpawnNewDepositCommand implements CommandExecutor, TabCompleter {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
 
         if(commandSender instanceof Player player){
-            ChunkSpawningUtil.spawnDeposit(player.getWorld().getChunkAt(player.getLocation()),player, DepositType.getFromString(strings[0]));
+            if(player.isOp()){
+                ChunkSpawningUtil.spawnDeposit(player.getWorld().getChunkAt(player.getLocation()),player, DepositType.getFromString(strings[0]));
+            }
         }
         return false;
     }

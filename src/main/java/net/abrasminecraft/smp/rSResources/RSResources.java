@@ -1,17 +1,14 @@
 package net.abrasminecraft.smp.rSResources;
 
-import net.abrasminecraft.smp.rSResources.commands.GrabChunkDataCommand;
 import net.abrasminecraft.smp.rSResources.commands.SpawnNewDepositCommand;
 import net.abrasminecraft.smp.rSResources.events.RightClickItemEvents;
 import net.abrasminecraft.smp.rSResources.events.depletionEvents.ChunkLoadEvent;
 import net.abrasminecraft.smp.rSResources.util.BlockTaskAttacher;
 import net.abrasminecraft.smp.rSResources.util.DataManager;
 import net.abrasminecraft.smp.rSResources.util.RegisterCustomRecipes;
-import net.itsrelizc.events.EventRegistery;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.ParseException;
@@ -30,7 +27,6 @@ public final class RSResources extends JavaPlugin {
         main = this;
         RegisterCustomRecipes.register();
         System.out.println("ENABLEFD");
-        Bukkit.getPluginCommand("grabchunkdata").setExecutor(new GrabChunkDataCommand());
         Bukkit.getPluginCommand("spawnnewdeposit").setExecutor(new SpawnNewDepositCommand());
         getServer().getPluginManager().registerEvents(new ChunkLoadEvent(),this);
         getServer().getPluginManager().registerEvents(new RightClickItemEvents(),this);
