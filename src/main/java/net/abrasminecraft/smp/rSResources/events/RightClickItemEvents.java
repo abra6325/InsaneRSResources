@@ -109,6 +109,13 @@ public class RightClickItemEvents implements Listener {
                         e.getPlayer().getInventory().setItemInMainHand(NBTUtils.setNBTInt(e.getItem(),"linking",0));
 
                     }
+                }else if (id == Config.ItemID.HAND_GENERATOR){
+                    //HAND GENERATOR
+                    ChunkResourcesManager m = DepletionManager.loadFromChunk(p.getWorld().getChunkAt(p.getLocation()));
+                    if(m.electricitySupply < 100){
+                        m.electricitySupply += 100;
+                        DepletionManager.saveToChunk(p.getWorld().getChunkAt(p.getLocation()),m);
+                    }
                 }
             }
 

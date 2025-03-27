@@ -17,6 +17,7 @@ public class Config {
             public static final int CREATIVE_SOURCE = 4;
             public static final int ENERGY_RELAY = 5;
             public static final int RELAY_LINKER = 6;
+            public static final int HAND_GENERATOR = 7;
             public static ItemStack getFromId(int id){
                 switch (id){
                     case DETECTOR:
@@ -31,6 +32,8 @@ public class Config {
                         return EnergyRelayItem.get();
                     case RELAY_LINKER:
                         return RelayLinkerItem.get();
+                    case HAND_GENERATOR:
+                        return HandGeneratorItem.get();
                     default:
                         return null;
                 }

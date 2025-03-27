@@ -46,6 +46,11 @@ public class RegisterCustomRecipes {
         linkerRecipe.addIngredient(Material.SHEARS);
         linkerRecipe.addIngredient(Material.REDSTONE);
         Bukkit.addRecipe(linkerRecipe);
+
+        ShapelessRecipe handGeneratorRecipe = new ShapelessRecipe(new NamespacedKey(RSResources.getMain(),"handgenerator_recipe"), HandGeneratorItem.get());
+        handGeneratorRecipe.addIngredient(Material.BLAZE_ROD);
+        handGeneratorRecipe.addIngredient(Material.REDSTONE);
+        Bukkit.addRecipe(handGeneratorRecipe);
 //        recipe = new ShapedRecipe(Key.getKey("metaldetector_recipe"),hoe);
 //        recipe.shape("xxo");
 //        recipe.shape("yzo");
