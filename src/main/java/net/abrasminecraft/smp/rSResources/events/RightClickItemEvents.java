@@ -97,6 +97,9 @@ public class RightClickItemEvents implements Listener {
                                     x.put("linkz",relayedBlockZ);
                                     x.put("direction",Config.Direction.EXTRACT);
                                     NBTUtils.saveCustomNBT(b.getLocation(),x);
+                                    copyStack = NBTUtils.setNBTInt(e.getItem(),"linking",0);
+                                    ItemStack finalCopyStack = copyStack;
+                                    Bukkit.getScheduler().scheduleSyncDelayedTask(RSResources.getMain(),() -> {e.getPlayer().getInventory().setItemInMainHand(finalCopyStack);},1);
                                     p.sendMessage("Relay Linker set to "+b.getX()+" "+b.getY()+" "+b.getZ() + " direction: EXTRACT" + " from "+relayedBlockX+" "+relayedBlockY+" "+relayedBlockZ);
                                 }
 

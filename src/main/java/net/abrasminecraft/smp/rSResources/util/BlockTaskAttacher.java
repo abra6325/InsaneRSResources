@@ -90,7 +90,7 @@ public class BlockTaskAttacher {
                     Long y = (Long) loading.get("linky");
                     Long z = (Long) loading.get("linkz");
                     Chunk c2 = world.getBlockAt(Math.toIntExact(x), Math.toIntExact(y), Math.toIntExact(z)).getChunk();
-                    if(!(c.getX() == c2.getX() && c.getZ() == c2.getZ())) {
+                    if(!(c.getX() == c2.getX() && c.getZ() == c2.getZ()) && NBTUtils.getID(world.getBlockAt(Math.toIntExact(x), Math.toIntExact(y), Math.toIntExact(z))) == Config.ItemID.ENERGY_RELAY){
                         ChunkResourcesManager manager2 = DepletionManager.loadFromChunk(c2);
                         if (manager2.electricitySupply > Config.RELAY_TRANSFER_RATE) {
                             manager2.electricitySupply -= Config.RELAY_TRANSFER_RATE;
