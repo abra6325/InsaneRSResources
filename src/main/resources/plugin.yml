@@ -1,0 +1,9 @@
+name: RSResources
+version: '1.0-SNAPSHOT'
+main: net.abrasminecraft.smp.rSResources.RSResources
+api-version: '1.20'
+commands:
+  grabchunkdata:
+    description: gets chunk datas
+  spawnnewdeposit:
+    description: spawns a new deposit
