@@ -36,6 +36,10 @@ public class RightClickItemEvents implements Listener {
             //LODESTONE_PREVENTION
             if(e.getAction() == Action.RIGHT_CLICK_BLOCK){
                 if(e.getClickedBlock().getType() == Material.DROPPER){
+
+                    
+                    
+                    
                     Block b = e.getClickedBlock();
                     if(NBTUtils.verifyBlock(b) && NBTUtils.getID(b) == Config.ItemID.OIL_RIG){
 
@@ -81,7 +85,10 @@ public class RightClickItemEvents implements Listener {
                                     copyStack = NBTUtils.setNBTInt(copyStack,"relayedBlockY",b.getY());
                                     copyStack = NBTUtils.setNBTInt(copyStack,"relayedBlockZ",b.getZ());
                                     copyStack = NBTUtils.setNBTInt(copyStack,"linking",1);
-                                    p.sendMessage("Relay Linker set to "+b.getX()+" "+b.getY()+" "+b.getZ());
+
+                                    // resources.item.relay.selecting "§a正在调试位于 §b%d, %d, %d§a 能量中继器!"
+                                    p.sendMessage(Locale.get("resources.item.relay.selecting", b.getX(), b.getY(), b.getZ()))
+                                    // p.sendMessage("Relay Linker set to "+b.getX()+" "+b.getY()+" "+b.getZ());
                                     ItemStack finalCopyStack = copyStack;
                                     Bukkit.getScheduler().scheduleSyncDelayedTask(RSResources.getMain(),() -> {e.getPlayer().getInventory().setItemInMainHand(finalCopyStack);},1);
                                     JSONObject x = NBTUtils.getCustomNBT(b.getLocation());
@@ -99,8 +106,12 @@ public class RightClickItemEvents implements Listener {
                                     NBTUtils.saveCustomNBT(b.getLocation(),x);
                                     copyStack = NBTUtils.setNBTInt(e.getItem(),"linking",0);
                                     ItemStack finalCopyStack = copyStack;
+
+                                    // resources.item.relay.connected "§a已设置位于 §b%d, %d, %d§a 能量中继器! §7(从 %d, %d, %d 吸取能量)"
+                                    
                                     Bukkit.getScheduler().scheduleSyncDelayedTask(RSResources.getMain(),() -> {e.getPlayer().getInventory().setItemInMainHand(finalCopyStack);},1);
-                                    p.sendMessage("Relay Linker set to "+b.getX()+" "+b.getY()+" "+b.getZ() + " direction: EXTRACT" + " from "+relayedBlockX+" "+relayedBlockY+" "+relayedBlockZ);
+                                    // p.sendMessage("Relay Linker set to "+b.getX()+" "+b.getY()+" "+b.getZ() + " direction: EXTRACT" + " from "+relayedBlockX+" "+relayedBlockY+" "+relayedBlockZ);
+                                    p.sendMessage(Locale.get(p, "resources.item.relay.connected", b.getX(), b.getY(), b.getZ(), relayedBlockX, relayedBlockY, relayedBlockZ))
                                 }
 
                             }
@@ -152,6 +163,16 @@ public class RightClickItemEvents implements Listener {
             Location bLoc = e.getBlockPlaced().getLocation();
             String wName = e.getBlockPlaced().getWorld().getName();
             int ID = NBTUtils.getID(blockItem);
+
+            for (Config.ItemID type : Config.ItemID.values()) {
+                if (type == ID) {
+                    e.getPlayer().playSound(e.getPlayer(), Sound.ENTITY_VILLAGER_YES, 2f, 1f);
+                    e.getPlayer().sendMessage(Locale.get(e.getPlayer(), "resources.placed", Locale.get(e.getPlayer(), "resources.item." + type.toString().toLowerCase())));
+                }
+            }
+
+            
+            
             BlockTaskAttacher.attach(bLoc,wName,ID);
             if(ID == Config.ItemID.ENERGY_RELAY){
                 JSONObject obj = new JSONObject();
@@ -167,8 +188,7 @@ public class RightClickItemEvents implements Listener {
 
     }
     @EventHandler
-    public static void onRedstoneActivation(HopperInventorySearchEvent e){
-        System.out.printf("redstone event");
+    public static void onRedstoneActivation(HopperInventorySearchEvent e){;
         if(NBTUtils.verifyBlock(e.getSearchBlock())){
             if(NBTUtils.getID(e.getSearchBlock()) == Config.ItemID.OIL_RIG){
 
